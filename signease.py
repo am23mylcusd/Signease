@@ -1,36 +1,41 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
+import json
 
-st.title('Uber pickups in NYC')
+def read_users():
+    with open('users.json', 'r') as f:
+        users = json.load(f)
+    return users
 
-DATE_COLUMN = 'date/time'
-DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-            'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
+def write_users(users):
+    with open('users.json', 'w') as f:
+        json.dump(users, f)
 
-@st.cache_data
-def load_data(nrows):
-    data = pd.read_csv(DATA_URL, nrows=nrows)
-    lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
-    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
+def login(username, password, users):
+    if username in users and users[username]['password'] == password:
+        return True
+    else:
+        return False
 
-data_load_state = st.text('Loading data...')
-data = load_data(10000)
-data_load_state.text("Done! (using st.cache_data)")
+def main():
+    st.title("Login Page")
+    st.write("Please enter your credentials to login.")
+    
+    # Get user input
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    
+    # Check if username and password are correct
+    if st.button("Login"):
+        users = read_users()
+        if login(username, password, users):
+            st.success("Login successful!")
+            # Create session
+            session_id = username
+            # Store session id in Streamlit's session state
+            st.session_state['session_id'] = session_id
+            # Redirect to your main application
+        else:
+            st.error("Invalid username or password")
 
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(data)
-
-st.subheader('Number of pickups by hour')
-hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-st.bar_chart(hist_values)
-
-# Some number in the range 0-23
-hour_to_filter = st.slider('hour', 0, 23, 17)
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-
-st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-st.map(filtered_data)
+if __name__ == '__main__':
+    main()
