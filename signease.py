@@ -1,18 +1,20 @@
 import streamlit as st
 
 def main():
-    st.title("Sign In")
+    st.title("Login Page")
 
-    # Get the username from the user or from the cookie
-    username = st.session_state.get("username")
-    if not username:
-        username = st.text_input("Username")
+    # Get the username from the user
+    username = st.text_input("Username", key="username")
+
+    # Check if the user has signed in before
+    if st.session_state.get("signed_in"):
+        st.write(f"Welcome back, {st.session_state['username']}!")
+    else:
+        # If the user has not signed in before, display a sign-in button
         if st.button("Sign In"):
+            st.session_state["signed_in"] = True
             st.session_state["username"] = username
-
-    # Display a welcome message to the user
-    if username:
-        st.write(f"Welcome back, {username}!")
+            st.write(f"Welcome, {username}!")
 
 if __name__ == "__main__":
     main()
