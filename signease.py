@@ -4,7 +4,7 @@ def main():
     st.title("Login Page")
 
     # Get the username from the user
-    username = st.text_input("Username", key="username")
+    username = st.text_input("Enter your username")
 
     # Check if the user has signed in before
     if st.session_state.get("signed_in"):
