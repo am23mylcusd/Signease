@@ -1,9 +1,20 @@
 import streamlit as st
 import json
+import os
 
 def read_users():
+    if not os.path.exists('users.json'):
+        # Create a new file if it doesn't exist
+        with open('users.json', 'w') as f:
+            json.dump({}, f)
     with open('users.json', 'r') as f:
-        users = json.load(f)
+        try:
+            users = json.load(f)
+        except json.JSONDecodeError:
+            # Create a new file if the existing one is invalid
+            with open('users.json', 'w') as f:
+                json.dump({}, f)
+            users = {}
     return users
 
 def write_users(users):
