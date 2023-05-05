@@ -18,7 +18,7 @@ def login():
             st.session_state[COOKIE_KEY] = True
             st.write(st.session_state[COOKIE_KEY])
             # Redirect to the homepage
-            st.experimental_rerun()
+            # st.experimental_rerun()
         else:
             st.error("Incorrect username or password")
 
