@@ -1,6 +1,6 @@
 import streamlit as st
-from streamlit.hashing import _CodeHasher
 from streamlit.report_thread import get_report_ctx
+from streamlit.server.server import Server
 
 # Define the login page
 def login():
@@ -27,7 +27,11 @@ def login():
             session_state.username = username
 
             # Redirect the user to the app page
+            url = get_server_url()
+            redirect_url = url + "?page=app&logged_in=True"
             st.experimental_set_query_params(logged_in=True)
+            st.experimental_rerun()
+
         else:
             # Show an error message
             st.error('Incorrect username or password')
@@ -43,17 +47,25 @@ def app():
 
 # Define the SessionState utility
 def get_session():
-    # Get the session ID hash
+    # Get the session ID
     ctx = get_report_ctx()
-    current_code_hash = _CodeHasher.get_session_id_hash()
+    session_id = ctx.session_id
 
     # Create a session state object for the current session
-    if not hasattr(ctx, 'session_state'):
-        ctx.session_state = _get_state(session=current_code_hash)
-    return ctx.session_state
+    if not hasattr(ctx.session, 'my_state'):
+        ctx.session.my_state = SessionState()
+    return ctx.session.my_state
 
-def _get_state(**kwargs):
-    return st._get_state(**kwargs)
+class SessionState:
+    def __init__(self):
+        self.username = None
+
+# Get the server URL
+def get_server_url():
+    server = Server.get_current()
+    if server is None:
+        raise RuntimeError("Not running with the Streamlit server")
+    return server.server_url
 
 # Check if the user is logged in
 if st.experimental_get_query_params().get('logged_in'):
