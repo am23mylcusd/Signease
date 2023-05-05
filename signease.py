@@ -12,7 +12,7 @@ def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
-        if username == "my_username" and password == "my_password":
+        if username == "Alex" and password == "M":
             st.success("Logged in!")
             # Set the cookie to True
             st.session_state[COOKIE_KEY] = True
