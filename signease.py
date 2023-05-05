@@ -5,7 +5,7 @@ COOKIE_KEY = "logged_in"
 
 # Define a function to check if the user is logged in
 def is_logged_in():
-    return st.session_state.get(COOKIE_KEY, False)
+    return st.session_state.get(COOKIE_KEY)
 
 # Define the login form
 def login():
@@ -16,7 +16,7 @@ def login():
             st.success("Logged in!")
             # Set the cookie to True
             st.session_state[COOKIE_KEY] = True
-            st.write(st.session_state.key)
+            st.write(st.session_state[COOKIE_KEY])
             # Redirect to the homepage
             st.experimental_rerun()
         else:
