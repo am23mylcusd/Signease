@@ -16,6 +16,7 @@ def login():
             st.success("Logged in!")
             # Set the cookie to True
             st.session_state[COOKIE_KEY] = True
+            st.write(st.session_state.key)
             # Redirect to the homepage
             st.experimental_rerun()
         else:
