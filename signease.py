@@ -1,46 +1,37 @@
 import streamlit as st
-import extra_streamlit_components as stx
 
-def create_login_page():
-    # Set up the login form fields
+# Set a key for the cookie
+COOKIE_KEY = "logged_in"
+
+# Define a function to check if the user is logged in
+def is_logged_in():
+    return st.session_state.get(COOKIE_KEY, False)
+
+# Define the login form
+def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
-
-    # Check if the form has been submitted
-    if st.form_submit_button("Log in"):
-        if username == "myusername" and password == "mypassword":
-            # Set a cookie to remember the user
-            stx.set_cookies({"user": username})
-            st.success("You have successfully logged in!")
-            # Redirect the user to the home page
-            st.experimental_set_query_params(logged_in=True)
+    if st.button("Login"):
+        if username == "my_username" and password == "my_password":
+            st.success("Logged in!")
+            # Set the cookie to True
+            st.session_state[COOKIE_KEY] = True
+            # Redirect to the homepage
+            st.experimental_rerun()
         else:
-            st.error("Invalid username or password")
+            st.error("Incorrect username or password")
 
-def create_home_page():
-    # Get the cookie for the user
-    user_cookie = stx.get_cookies().get("user")
+# Define the logout function
+def logout():
+    # Remove the cookie
+    st.session_state[COOKIE_KEY] = False
+    # Redirect to the login page
+    st.experimental_rerun()
 
-    # Check if the user is logged in
-    if user_cookie is None:
-        # Redirect the user to the login page
-        st.experimental_set_query_params(logged_in=False)
-        return
-
-    # Display the home page
-    st.write(f"Welcome back, {user_cookie}!")
-
-def main():
-    # Set up the Streamlit app
-    st.set_page_config(page_title="Login Demo")
-    st.title("Login Demo")
-
-    # Determine which page to show based on the URL query parameters
-    logged_in = st.experimental_get_query_params().get("logged_in")
-    if logged_in == "True":
-        create_home_page()
-    else:
-        create_login_page()
-
-if __name__ == "__main__":
-    main()
+# Check if the user is logged in
+if is_logged_in():
+    st.write("Welcome to the homepage!")
+    st.button("Logout", on_click=logout)
+else:
+    st.write("Please login")
+    login()
