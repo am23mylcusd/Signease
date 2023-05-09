@@ -53,7 +53,7 @@ def logout():
     st.experimental_rerun()
 
 # Check if the user is logged in
-if is_logged_in():
+if is_logged_in() == "logged_in":
     st.write("Welcome to the homepage!")
     st.button("Logout", on_click=logout)
 else:
