@@ -8,8 +8,8 @@ cookies = EncryptedCookieManager(
     prefix="localhost/",
     #prefix="",   # no prefix will show all your cookies for this domain
     # You should setup COOKIES_PASSWORD secret if you're running on Streamlit Cloud.
-    password=os.environ.get("COOKIES_PASSWORD", "Vahedidthis"),
-    #password='changeme'
+    #password=os.environ.get("COOKIES_PASSWORD", "Vahedidthis"),
+    password='changeme'
 )
 
 if not cookies.ready():
