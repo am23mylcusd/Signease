@@ -28,6 +28,7 @@ COOKIE_KEY = "logged_in"
 
 # Define a function to check if the user is logged in
 def is_logged_in():
+    
     return st.session_state.get(COOKIE_KEY)
 
 # Define the login form
@@ -35,11 +36,9 @@ def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
-        if username == "Alex" and password == "M":
-            st.success("Logged in!")
+        if username in cookies and password == cookies[username]:
             # Set the cookie to True
             st.session_state[COOKIE_KEY] = True
-            st.write(st.session_state[COOKIE_KEY])
             # Redirect to the homepage
             # st.experimental_rerun()
         else:
