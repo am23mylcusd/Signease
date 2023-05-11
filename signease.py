@@ -31,6 +31,7 @@ def signup():
 
 # Define a function to check if the user is logged in
 def is_logged_in():
+    st.write(cookies["alex"][2])
     return cookies["alex"][2]
 
 # Define the login form
@@ -57,7 +58,6 @@ def logout():
     st.experimental_rerun()       
         
 def form_callback():
-    st.write(st.session_state.my_checkbox)
     st.write(st.session_state.choice)
   
 st.write("Current cookies:", cookies, list(cookies.items())[1])
@@ -74,10 +74,7 @@ st.button("Sign up", on_click=signup)
 
 # Check if the user is logged in
 with st.form(key='my_form'):
-    checkbox_input = st.checkbox('Yes or No', key='my_checkbox')
-    genre = st.radio(
-    "Where are you going?",
-    ('Office', 'Bathroom', 'meeting'), key='choice')
+    st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
     submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
 
 if is_logged_in():
