@@ -25,7 +25,7 @@ def signup():
     email = st.text_input("School Email")
     if st.button("Sign Up!"):
         st.session_state[COOKIE_KEY] = True
-        cookies[name] = (last_name,email,st.session_state[COOKIE_KEY])
+        cookies[name] = [last_name,email,st.session_state[COOKIE_KEY]]
         cookies.save()
 
 
@@ -54,7 +54,7 @@ def logout():
     # Remove the cookie
     st.session_state[COOKIE_KEY] = False
     del cookies["alex"]
-    cookies["alex"] = ("","",st.session_state[COOKIE_KEY])
+    cookies["alex"] = ["","",st.session_state[COOKIE_KEY]]
     # Redirect to the login page
     st.experimental_rerun()       
         
