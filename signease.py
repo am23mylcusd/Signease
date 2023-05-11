@@ -24,7 +24,7 @@ def signup():
     last_name = st.text_input("Last Name")
     email = st.text_input("School Email")
     if st.button("Sign Up!"):
-        st.session_state[COOKIE_KEY] = "True"
+        st.session_state[COOKIE_KEY] = True
         cookies[name] = {last_name,email,st.session_state[COOKIE_KEY]}
         cookies.save()
 
@@ -41,7 +41,7 @@ def login():
     if st.button("Login"):
         if name in cookies and last_name == cookies[username][0] and email == cookies[username][1]:
             # Set the cookie to True
-            st.session_state[COOKIE_KEY] = "True"
+            st.session_state[COOKIE_KEY] = True
             cookies[name][2] = st.session_state[COOKIE_KEY]
             # Redirect to the homepage
             # st.experimental_rerun()
@@ -51,8 +51,8 @@ def login():
 # Define the logout function
 def logout():
     # Remove the cookie
-    st.session_state[COOKIE_KEY] = "False"
-    cookies["alex"][2] = st.session_state[COOKIE_KEY]
+    st.session_state[COOKIE_KEY] = False
+    cookies["alex"] = st.session_state[COOKIE_KEY]
     # Redirect to the login page
     st.experimental_rerun()       
         
