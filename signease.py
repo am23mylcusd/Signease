@@ -57,7 +57,7 @@ def logout():
     st.experimental_rerun()       
         
         
-st.write("Current cookies:", cookies)
+st.write("Current cookies:", cookies, cookies.keys())
 st.button("Sign up", on_click=signup)
 
 # st.write("Current cookies:", cookies)
