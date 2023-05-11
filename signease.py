@@ -72,7 +72,7 @@ st.button("Sign up", on_click=signup)
 # Check if the user is logged in
 with st.form(key='my_form'):
     checkbox_input = st.checkbox('Yes or No', key='my_checkbox')
-    submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
+    st.form_submit_button(label='Submit', on_click=form_callback)
 
 if is_logged_in():
     st.write("Welcome to the homepage!")
