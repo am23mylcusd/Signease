@@ -56,7 +56,9 @@ def logout():
     # Redirect to the login page
     st.experimental_rerun()       
         
-        
+def form_callback():
+    st.write(st.session_state.my_checkbox)
+  
 st.write("Current cookies:", cookies, list(cookies.items())[1])
 st.button("Sign up", on_click=signup)
 
@@ -72,7 +74,7 @@ st.button("Sign up", on_click=signup)
 # Check if the user is logged in
 with st.form(key='my_form'):
     checkbox_input = st.checkbox('Yes or No', key='my_checkbox')
-    st.form_submit_button(label='Submit', on_click=form_callback)
+    submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
 
 if is_logged_in():
     st.write("Welcome to the homepage!")
