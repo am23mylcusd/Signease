@@ -31,7 +31,7 @@ def signup():
 
 # Define a function to check if the user is logged in
 def is_logged_in():
-    return cookies[name][2]
+    return cookies[1][2]
 
 # Define the login form
 def login():
@@ -52,7 +52,7 @@ def login():
 def logout():
     # Remove the cookie
     st.session_state[COOKIE_KEY] = False
-    cookies[name][2] = st.session_state[COOKIE_KEY]
+    cookies[1][2] = st.session_state[COOKIE_KEY]
     # Redirect to the login page
     st.experimental_rerun()       
         
@@ -71,6 +71,7 @@ st.button("Sign up", on_click=signup)
 
 
 # Check if the user is logged in
+
 if is_logged_in():
     st.write("Welcome to the homepage!")
     st.button("Logout", on_click=logout)
