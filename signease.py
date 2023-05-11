@@ -53,6 +53,7 @@ def login():
 def logout():
     # Remove the cookie
     st.session_state[COOKIE_KEY] = False
+    del cookies["alex"]
     cookies["alex"] = st.session_state[COOKIE_KEY]
     # Redirect to the login page
     st.experimental_rerun()       
