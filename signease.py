@@ -75,7 +75,7 @@ st.button("Sign up", on_click=signup)
 
 # Check if the user is logged in
 with st.form(key='my_form'):
-    checkbox_input = st.checkbox('Signing Out?', key='my_checkbox', on_click=form_callback)
+    checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
     if st.session_state.choice == True:
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
     submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
