@@ -60,6 +60,9 @@ def logout():
         
 def form_callback():
     st.write(st.session_state.choice)
+    
+def form_callback():
+    st.write("submitted -")
   
 st.write("Current cookies:", cookies, list(cookies.items())[1])
 st.button("Sign up", on_click=signup)
