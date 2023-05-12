@@ -79,6 +79,8 @@ if st.session_state.my_checkbox == True:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
         submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
+else:
+    submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
 
 if is_logged_in():
     st.write("Welcome to the homepage!")
