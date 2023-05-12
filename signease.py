@@ -63,6 +63,7 @@ def form_callback():
   
 st.write("Current cookies:", cookies, list(cookies.items())[1])
 st.button("Sign up", on_click=signup)
+checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
 
 # st.write("Current cookies:", cookies)
 # name = st.text_input("New name for a cookie (key)")
@@ -75,7 +76,6 @@ st.button("Sign up", on_click=signup)
 
 # Check if the user is logged in
 with st.form(key='my_form'):
-    checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
     if st.session_state.choice == True:
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
     submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
