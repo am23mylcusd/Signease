@@ -21,13 +21,7 @@ if not cookies.ready():
 COOKIE_KEY = "logged_in"
 
 def signup():
-    name = st.text_input("Name")
-    last_name = st.text_input("Last Name")
-    email = st.text_input("School Email")
-    if st.button("Sign Up!"):
-        st.session_state[COOKIE_KEY] = True
-        cookies[name] = [last_name,email,st.session_state[COOKIE_KEY]]
-        cookies.save()
+    signupPage = True
 
 
 # Define a function to check if the user is logged in
@@ -93,3 +87,12 @@ if is_logged_in():
 else:
     st.write("Please login")
     login()
+    
+if signupPage == True:
+    name = st.text_input("Name")
+    last_name = st.text_input("Last Name")
+    email = st.text_input("School Email")
+    if st.button("Sign Up!"):
+        st.session_state[COOKIE_KEY] = True
+        cookies[name] = [last_name,email,st.session_state[COOKIE_KEY]]
+        cookies.save()
