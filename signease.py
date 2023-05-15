@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 from streamlit_cookies_manager import EncryptedCookieManager
 
@@ -54,7 +55,7 @@ def logout():
     # Remove the cookie
     st.session_state[COOKIE_KEY] = False
     del cookies["alex"]
-    cookies["alex"] = ["","",st.session_state[COOKIE_KEY]]
+    cookies["alex"] = [""]
     # Redirect to the login page
     st.experimental_rerun()       
         
