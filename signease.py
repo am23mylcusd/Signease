@@ -87,7 +87,7 @@ if is_logged_in():
 else:
     st.write("Please login")
     login()
-    
+signupPage = True
 if signupPage == True:
     name = st.text_input("Name")
     last_name = st.text_input("Last Name")
