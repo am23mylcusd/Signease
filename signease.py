@@ -94,6 +94,6 @@ if signupPage == True:
     email = st.text_input("School Email")
     if st.button("Sign Up!"):
         st.session_state[COOKIE_KEY] = True
-        # cookies[name] = [last_name,email,st.session_state[COOKIE_KEY]]
-        cookies[name] = [last_name]
+        # cookies[name] = [last_name,email,st.session_state[COOKIE_KEY] 
+        cookies[name] = last_name
         #cookies.save()
