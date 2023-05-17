@@ -96,4 +96,4 @@ if signupPage == True:
         st.session_state[COOKIE_KEY] = True
         # cookies[name] = [last_name,email,st.session_state[COOKIE_KEY]]
         cookies[name] = [last_name]
-        cookies.save()
+        #cookies.save()
