@@ -1,4 +1,71 @@
-import json
+import streamlit as st
+from streamlit_cookies_manager import EncryptedCookieManager
+
+cookies = EncryptedCookieManager(
+    prefix="localhost/",
+    password='changeme'
+)
+
+if not cookies.ready():
+    st.stop()
+
+COOKIE_KEY = "logged_in"
+
+def signup():
+    signupPage = True
+    # Add your signup logic here
+
+def login():
+    name = st.text_input("Name")
+    last_name = st.text_input("Last Name")
+    email = st.text_input("School Email")
+    if st.button("Login"):
+        if name in cookies and last_name == cookies[name] and email == cookies[name]:
+            st.session_state[COOKIE_KEY] = True
+            cookies[name] = st.session_state[COOKIE_KEY]
+        else:
+            st.error("Incorrect username or password")
+
+def logout():
+    st.session_state[COOKIE_KEY] = False
+    if "alex" in cookies:
+        del cookies["alex"]
+
+def form_callback():
+    st.write(st.session_state.choice)
+
+cookies_info = st.empty()
+cookies_info.write("Current cookies: " + str(list(cookies.items())))
+
+if st.button("Sign up", on_click=signup):
+    signup()
+
+if st.checkbox('Signing Out?', key='my_checkbox'):
+    with st.form(key='my_form'):
+        st.radio("Where are you going?", ('Office', 'Bathroom', 'Meeting'), key='choice')
+        submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
+else:
+    submit_button = st.button("Submit", on_click=form_callback)
+
+if is_logged_in():
+    st.write("Welcome to the homepage!")
+    st.button("Logout", on_click=logout)
+else:
+    st.write("Please login")
+    login()
+
+signupPage = True
+if signupPage:
+    name = st.text_input("Name")
+    last_name = st.text_input("Last Name")
+    email = st.text_input("School Email")
+    if st.button("Sign Up!"):
+        st.session_state[COOKIE_KEY] = True
+        cookies.clear()
+        cookies[name] = last_name
+
+
+"""import json
 import streamlit as st
 from streamlit_cookies_manager import EncryptedCookieManager
 
@@ -97,4 +164,4 @@ if signupPage == True:
         cookies.clear()
         # cookies[name] = [last_name,email,st.session_state[COOKIE_KEY] 
         cookies[name] = last_name
-        #cookies.save()
+        #cookies.save()"""
