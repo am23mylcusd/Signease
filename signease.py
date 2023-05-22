@@ -31,6 +31,9 @@ def logout():
     if "alex" in cookies:
         del cookies["alex"]
 
+def is_logged_in():
+    return st.session_state[COOKIE_KEY]
+
 def form_callback():
     st.write(st.session_state.choice)
 
@@ -63,6 +66,7 @@ if signupPage:
         st.session_state[COOKIE_KEY] = True
         cookies.clear()
         cookies[name] = last_name
+
 
 
 """import json
