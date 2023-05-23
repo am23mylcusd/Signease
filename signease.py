@@ -2,11 +2,10 @@ import json
 import streamlit as st
 
 
-
 name = st.text_input("Name")
 last_name = st.text_input("Last Name")
 email = st.text_input("School Email")
-checkbox_input = st.checkbox('Signing In?', key='my_checkbox')
+checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
 if st.session_state.my_checkbox == False:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
@@ -17,7 +16,8 @@ if st.session_state.my_checkbox == False:
 else:
     submit_button = st.button("Submit")
     if submit_button:
-            st.write(st.session_state.choice)
+        st.write(st.session_state.choice)
+            
 # import json
 # import streamlit as st
 # from streamlit_cookies_manager import EncryptedCookieManager
