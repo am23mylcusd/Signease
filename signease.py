@@ -1,24 +1,24 @@
 import json
 import streamlit as st
 
-if st.session_state[Thanks] == False:
-    name = st.text_input("Name")
-    last_name = st.text_input("Last Name")
-    id = st.text_input("Student ID")
-    checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
-    if st.session_state.my_checkbox == True:
-        with st.form(key='my_form'):
-            st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
-            submit_button = st.form_submit_button(label='Submit')
-            if submit_button:
-                st.write(st.session_state.choice)
-                st.session_state[Thanks] == True
-    else:
-        submit_button = st.button("Submit")
+name = st.text_input("Name")
+last_name = st.text_input("Last Name")
+id = st.text_input("Student ID")
+checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
+if st.session_state.my_checkbox == True:
+    with st.form(key='my_form'):
+        st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
+        submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
             st.session_state[Thanks] == True
 else:
+    submit_button = st.button("Submit")
+    if submit_button:
+        st.write(st.session_state.choice)
+        st.session_state[Thanks] == True
+
+if st.session_state[Thanks] == True:
     st.write("Thanks")
 # import json
 # import streamlit as st
