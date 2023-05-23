@@ -11,14 +11,14 @@ if st.session_state.my_checkbox == True:
         submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
-            st.session_state[Thanks] == True
+            st.session_state.Thanks == True
 else:
     submit_button = st.button("Submit")
     if submit_button:
         st.write(st.session_state.choice)
-        st.session_state[Thanks] == True
+        st.session_state.Thanks == True
 
-if st.session_state[Thanks] == True:
+if st.session_state.Thanks == True:
     st.write("Thanks")
 # import json
 # import streamlit as st
