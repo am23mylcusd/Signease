@@ -2,8 +2,6 @@ import json
 import streamlit as st
 
 
-def form_callback():
-    st.write(st.session_state.choice)
 
 name = st.text_input("Name")
 last_name = st.text_input("Last Name")
@@ -14,9 +12,12 @@ if st.session_state.my_checkbox == False:
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
         st.write(st.session_state.choice)
         submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
+        if submit_button:
+            st.write(st.session_state.choice)
 else:
-    submit_button = st.button("Submit", on_click=form_callback())
-
+    submit_button = st.button("Submit")
+    if submit_button:
+            st.write(st.session_state.choice)
 # import json
 # import streamlit as st
 # from streamlit_cookies_manager import EncryptedCookieManager
