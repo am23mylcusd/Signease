@@ -10,7 +10,7 @@ name = st.text_input("Name")
 last_name = st.text_input("Last Name")
 email = st.text_input("School Email")
 checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
-if st.session_state.my_checkbox == True:
+if st.session_state.my_checkbox == False:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
         st.write(st.session_state.choice)
