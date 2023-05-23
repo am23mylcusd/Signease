@@ -1,7 +1,6 @@
 import json
 import streamlit as st
 
-st.session_state.choice = "none"
 
 def form_callback():
     st.write(st.session_state.choice)
