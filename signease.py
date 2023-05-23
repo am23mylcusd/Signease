@@ -1,9 +1,6 @@
 import json
 import streamlit as st
 
-Thanks = False
-st.session_state[Thanks] = False
-
 if st.session_state[Thanks] == False:
     name = st.text_input("Name")
     last_name = st.text_input("Last Name")
