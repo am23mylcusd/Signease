@@ -1,14 +1,13 @@
 import json
 import streamlit as st
 
-
+def form_callback():
+    st.write(st.session_state.choice)
 
 name = st.text_input("Name")
 last_name = st.text_input("Last Name")
 email = st.text_input("School Email")
-
 checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
-# Check if the user is logged in
 if st.session_state.my_checkbox == True:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
