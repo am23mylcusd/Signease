@@ -1,6 +1,7 @@
 import json
 import streamlit as st
 
+Thanks = False
 st.session_state[Thanks] = False
 
 if st.session_state[Thanks] == False:
