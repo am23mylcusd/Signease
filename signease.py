@@ -20,7 +20,8 @@ if st.session_state[Thanks] == False:
         if submit_button:
             st.write(st.session_state.choice)
             st.session_state[Thanks] == True
-            
+else:
+    st.write("Thanks")
 # import json
 # import streamlit as st
 # from streamlit_cookies_manager import EncryptedCookieManager
