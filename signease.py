@@ -16,7 +16,6 @@ if st.session_state.my_checkbox == True:
 else:
     submit_button = st.button("Submit", on_click=form_callback())
  
-def form_callback():
     st.write(st.session_state.choice)
 
 # import json
