@@ -4,12 +4,11 @@ import streamlit as st
 
 name = st.text_input("Name")
 last_name = st.text_input("Last Name")
-email = st.text_input("School Email")
+id = st.text_input("Student ID")
 checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
 if st.session_state.my_checkbox == True:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
-        st.write(st.session_state.choice)
         submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
