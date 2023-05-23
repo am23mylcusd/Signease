@@ -11,7 +11,7 @@ if st.session_state.my_checkbox == False:
     with st.form(key='my_form'):
         st.radio("Where are you going?",('Office', 'Bathroom', 'meeting'), key='choice')
         st.write(st.session_state.choice)
-        submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
+        submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
 else:
