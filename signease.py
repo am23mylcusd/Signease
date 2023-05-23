@@ -1,7 +1,7 @@
 import json
 import streamlit as st
 
-Thanks = False
+Thanks = "Submitted"
 
 if st.session_state[Thanks] == False:
     name = st.text_input("Name")
