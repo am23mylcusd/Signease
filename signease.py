@@ -7,12 +7,6 @@ name = st.text_input("Name")
 last_name = st.text_input("Last Name")
 email = st.text_input("School Email")
 
-
- 
-        
-def form_callback():
-    st.write(st.session_state.choice)
-  
 checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
 # Check if the user is logged in
 if st.session_state.my_checkbox == True:
@@ -21,7 +15,9 @@ if st.session_state.my_checkbox == True:
         submit_button = st.form_submit_button(label='Submit', on_click=form_callback)
 else:
     submit_button = st.button("Submit", on_click=form_callback())
-
+ 
+def form_callback():
+    st.write(st.session_state.choice)
 
 # import json
 # import streamlit as st
