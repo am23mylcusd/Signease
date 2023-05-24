@@ -16,14 +16,14 @@ else:
             st.radio("Where are you going?", ('Office', 'Bathroom', 'other'), key='choice')
             submit_button = st.form_submit_button(label='Submit')
             if submit_button:
-                with open('Logs.txt', 'a') as f:
+                with open('logs.txt', 'a') as f:
                     st.session_state[COMPLETION_KEY] = True
-                    date = datetime.now().strftime("%m / %d / %Y - %I:%M %p")
+                    date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                     f.write(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
     else:
         submit_button = st.button("Submit")
         if submit_button:
             st.session_state[COMPLETION_KEY] = True
-            with open('Logs.txt', 'a') as f:
-                date = datetime.now().strftime("%m / %d / %Y - %I:%M %p")
+            with open('logs.txt', 'a') as f:
+                date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                 f.write(f"{date} {name} {last_name} {id} returned to class\n")
