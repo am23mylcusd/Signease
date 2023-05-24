@@ -15,15 +15,15 @@ if st.session_state.my_checkbox == True:
             st.write(st.session_state.choice)
             with open('Logs.txt', 'w') as f:
                 f.write( '%(asctime)s %(name)s %(last_name)s %(id)s %(st.session_state.choice)s')
-            st.session_state.[COMPLETION_KEY] == True
+            st.session_state[COMPLETION_KEY] == True
 else:
     submit_button = st.button("Submit")
     if submit_button:
         with open('Logs.txt', 'w') as f:
             f.write('%(asctime)s %(name)s %(last_name)s %(id)s returned to class')
-        st.session_state.[COMPLETION_KEY] == True
+        st.session_state[COMPLETION_KEY] == True
 
-if st.session_state.[COMPLETION_KEY] == True:
+if st.session_state[COMPLETION_KEY] == True:
     st.write("Thanks")
 # import json
 # import streamlit as st
