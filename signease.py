@@ -26,6 +26,8 @@ else:
                     date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                     f.write(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
                     clone_repo.git.add('logs.txt')
+                    clone_repo.git.config('--global', 'user.email', 'amnatsakanian23@mylcusd.net')
+                    clone_repo.git.config('--global', 'user.name', 'am23mylcusd')
                     clone_repo.git.commit('-m', 'Update logs.txt')
                     clone_repo.git.push()
     else:
@@ -37,6 +39,8 @@ else:
                 date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                 f.write(f"{date} {name} {last_name} {id} returned to class\n")
                 clone_repo.git.add('logs.txt')
+                clone_repo.git.config('--global', 'user.email', 'amnatsakanian23@mylcusd.net')
+                clone_repo.git.config('--global', 'user.name', 'am23mylcusd')
                 clone_repo.git.commit('-m', 'Update logs.txt')
                 clone_repo.git.push()
 
