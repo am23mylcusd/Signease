@@ -5,7 +5,7 @@ import tempfile
 import os
 
 COMPLETION_KEY = "Thanks"
-REPO_URL = "https://github.com/am23mylcusd/your_repository.git"
+REPO_URL = "https://github.com/am23mylcusd/Signease.git"
 TEMP_DIR = tempfile.mkdtemp()
 
 if st.session_state.get(COMPLETION_KEY, False):
