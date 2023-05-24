@@ -13,13 +13,13 @@ if st.session_state.my_checkbox == True:
         submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
-            with open('Logs.txt', 'w') as f:
+            with open('logs.txt', 'w') as f:
                 f.write( '%(asctime)s %(name)s %(last_name)s %(id)s %(st.session_state.choice)s')
             st.session_state[COMPLETION_KEY] = True
 else:
     submit_button = st.button("Submit")
     if submit_button:
-        with open('Logs.txt', 'w') as f:
+        with open('logs.txt', 'w') as f:
             f.write('%(asctime)s %(name)s %(last_name)s %(id)s returned to class')
         st.session_state[COMPLETION_KEY] = True
 
