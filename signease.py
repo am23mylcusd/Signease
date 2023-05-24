@@ -1,6 +1,8 @@
 import json
 import streamlit as st
 
+COMPLETION_KEY = "Thanks"
+
 name = st.text_input("Name")
 last_name = st.text_input("Last Name")
 id = st.text_input("Student ID")
@@ -11,14 +13,17 @@ if st.session_state.my_checkbox == True:
         submit_button = st.form_submit_button(label='Submit')
         if submit_button:
             st.write(st.session_state.choice)
-            st.session_state.Thanks == True
+            with open('Logs.txt', 'w') as f:
+                f.write( '%(asctime)s %(name)s %(last_name)s %(id)s %(st.session_state.choice)s')
+            st.session_state.[COMPLETION_KEY] == True
 else:
     submit_button = st.button("Submit")
     if submit_button:
-        st.write(st.session_state.choice)
-        st.session_state.Thanks == True
+        with open('Logs.txt', 'w') as f:
+            f.write('%(asctime)s %(name)s %(last_name)s %(id)s returned to class')
+        st.session_state.[COMPLETION_KEY] == True
 
-if st.session_state.Thanks == True:
+if st.session_state.[COMPLETION_KEY] == True:
     st.write("Thanks")
 # import json
 # import streamlit as st
