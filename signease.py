@@ -23,7 +23,7 @@ else:
             f.write('%(asctime)s %(name)s %(last_name)s %(id)s returned to class')
         st.session_state[COMPLETION_KEY] = True
 
-if st.session_state[COMPLETION_KEY] == True:
+if st.session_state.get(COMPLETION_KEY, False):
     st.write("Thanks")
 # import json
 # import streamlit as st
