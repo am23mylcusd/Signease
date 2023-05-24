@@ -41,10 +41,10 @@ else:
                 f.write(f"{date} {name} {last_name} {id} returned to class\n")
                 clone_repo.git.add('logs.txt')
                  if clone_repo.is_dirty():
-                        clone_repo.git.config('--global', 'user.email', 'amnatsakanian23@mylcusd.net')
-                        clone_repo.git.config('--global', 'user.name', 'am23mylcusd')
-                        clone_repo.git.commit('-m', 'Update logs.txt')
-                        clone_repo.git.push()
+                     clone_repo.git.config('--global', 'user.email', 'amnatsakanian23@mylcusd.net')
+                     clone_repo.git.config('--global', 'user.name', 'am23mylcusd')
+                     clone_repo.git.commit('-m', 'Update logs.txt')
+                     clone_repo.git.push()
 
 # import streamlit as st
 # from datetime import datetime
