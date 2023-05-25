@@ -59,7 +59,7 @@ else:
             payload = {
                 "content": f"{name} {last_name} {id} returned to class"
             }
-           payload = {
+            payload = {
                 "content": logs_content
             }
 
