@@ -29,9 +29,15 @@ else:
                 with open(LOGS_FILE, 'r') as f:
                     logs_content = f.read()
                 payload = {
-                    "content": f"{name} {last_name} {id} left to {st.session_state.choice}", logs_content
+                    "content": f"{name} {last_name} {id} left to {st.session_state.choice}"
                 }
 
+                # Send a POST request to the Discord webhook URL
+                response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
+                payload = {
+                    "content": logs_content
+                }
+    
                 # Send a POST request to the Discord webhook URL
                 response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
                 if response.status_code == 204:
@@ -51,9 +57,14 @@ else:
             with open(LOGS_FILE, 'r') as f:
                     logs_content = f.read()
             payload = {
-                "content": f"{name} {last_name} {id} returned to class", logs_content
+                "content": f"{name} {last_name} {id} returned to class"
+            }
+           payload = {
+                "content": logs_content
             }
 
+            # Send a POST request to the Discord webhook URL
+            response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
             # Send a POST request to the Discord webhook URL
             response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
             if response.status_code == 204:
