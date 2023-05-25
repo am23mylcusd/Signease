@@ -24,20 +24,10 @@ else:
                     st.session_state[COMPLETION_KEY] = True
                     date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                     f.write(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
-                
                 # Create a payload for the Discord webhook
-                with open(LOGS_FILE, 'r') as f:
-                    logs_content = f.read()
                 payload = {
-                    "content": f"{name} {last_name} {id} left to {st.session_state.choice}"
+                    "content": f"{date} {name} {last_name} {id} left to {st.session_state.choice}"
                 }
-
-                # Send a POST request to the Discord webhook URL
-                response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
-                payload = {
-                    "content": logs_content
-                }
-    
                 # Send a POST request to the Discord webhook URL
                 response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
                 if response.status_code == 204:
@@ -52,19 +42,10 @@ else:
             with open(LOGS_FILE, 'a') as f:
                 date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                 f.write(f"{date} {name} {last_name} {id} returned to class\n")
-
             # Create a payload for the Discord webhook
-            with open(LOGS_FILE, 'r') as f:
-                    logs_content = f.read()
             payload = {
-                "content": f"{name} {last_name} {id} returned to class"
+                "content": f"{date} {name} {last_name} {id} returned to class"
             }
-            payload = {
-                "content": logs_content
-            }
-
-            # Send a POST request to the Discord webhook URL
-            response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
             # Send a POST request to the Discord webhook URL
             response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
             if response.status_code == 204:
