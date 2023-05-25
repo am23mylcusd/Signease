@@ -1,7 +1,7 @@
 import streamlit as st
+import smtplib
+from email.message import EmailMessage
 from datetime import datetime
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 
 COMPLETION_KEY = "Thanks"
 
@@ -17,28 +17,38 @@ else:
             st.radio("Where are you going?", ('Office', 'Bathroom', 'other'), key='choice')
             submit_button = st.form_submit_button(label='Submit')
             if submit_button:
-                gauth = GoogleAuth()
-                gauth.LocalWebserverAuth()
-                drive = GoogleDrive(gauth)
-                file = drive.CreateFile({'title': 'logs.txt', 'parents': [{'id': 'your_folder_id'}]})
-                file.FetchMetadata()
-                date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
-                file.SetContentString(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
-                file.Upload()
                 st.session_state[COMPLETION_KEY] = True
+                date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
+                message = f"{date} {name} {last_name} {id} {st.session_state.choice}"
+                send_email(message)
     else:
         submit_button = st.button("Submit")
         if submit_button:
-            gauth = GoogleAuth()
-            gauth.LocalWebserverAuth()
-            drive = GoogleDrive(gauth)
-            file = drive.CreateFile({'title': 'logs.txt', 'parents': [{'id': 'your_folder_id'}]})
-            file.FetchMetadata()
-            date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
-            file.SetContentString(f"{date} {name} {last_name} {id} returned to class\n")
-            file.Upload()
             st.session_state[COMPLETION_KEY] = True
+            date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
+            message = f"{date} {name} {last_name} {id} returned to class"
+            send_email(message)
 
+
+def send_email(message):
+    sender_email = "keithleyclassbot@gmail.com"  # Replace with your email address
+    sender_password = "Keithleyrocks123%%"  # Replace with your email password
+    receiver_email = "amnatsakanian23@mylcusd.net"  # Replace with your teacher's email address
+
+    msg = EmailMessage()
+    msg.set_content(message)
+    msg['Subject'] = "Student Activity"
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.starttls()
+            smtp.login(sender_email, sender_password)
+            smtp.send_message(msg)
+        st.write("Email sent successfully!")
+    except Exception as e:
+        st.write(f"Error sending email: {e}")
 
 # import streamlit as st
 # from datetime import datetime
