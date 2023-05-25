@@ -1,8 +1,7 @@
 import streamlit as st
 from datetime import datetime
-import requests
-
-WEBHOOK_URL = "http://127.0.0.1:5000/"  # Replace with your webhook URL
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 COMPLETION_KEY = "Thanks"
 
@@ -11,43 +10,34 @@ if st.session_state.get(COMPLETION_KEY, False):
 else:
     name = st.text_input("Name")
     last_name = st.text_input("Last Name")
-    student_id = st.text_input("Student ID")
+    id = st.text_input("Student ID")
     checkbox_input = st.checkbox('Signing Out?', key='my_checkbox')
     if st.session_state.my_checkbox:
         with st.form(key='my_form'):
-            location_choice = st.radio("Where are you going?", ('Office', 'Bathroom', 'Other'), key='choice')
+            st.radio("Where are you going?", ('Office', 'Bathroom', 'other'), key='choice')
             submit_button = st.form_submit_button(label='Submit')
             if submit_button:
-                data = {
-                    "name": name,
-                    "last_name": last_name,
-                    "student_id": student_id,
-                    "location_choice": location_choice,
-                    "timestamp": datetime.now().isoformat(),
-                }
-                response = requests.post(WEBHOOK_URL, json=data)
-                if response.status_code == 200:
-                    st.write("worked")
-                    st.session_state[COMPLETION_KEY] = True
-                else:
-                    st.write("didnt work")
+                gauth = GoogleAuth()
+                gauth.LocalWebserverAuth()
+                drive = GoogleDrive(gauth)
+                file = drive.CreateFile({'title': 'logs.txt', 'parents': [{'id': 'your_folder_id'}]})
+                file.FetchMetadata()
+                date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
+                file.SetContentString(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
+                file.Upload()
+                st.session_state[COMPLETION_KEY] = True
     else:
         submit_button = st.button("Submit")
         if submit_button:
+            gauth = GoogleAuth()
+            gauth.LocalWebserverAuth()
+            drive = GoogleDrive(gauth)
+            file = drive.CreateFile({'title': 'logs.txt', 'parents': [{'id': 'your_folder_id'}]})
+            file.FetchMetadata()
+            date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
+            file.SetContentString(f"{date} {name} {last_name} {id} returned to class\n")
+            file.Upload()
             st.session_state[COMPLETION_KEY] = True
-            data = {
-                "name": name,
-                "last_name": last_name,
-                "student_id": student_id,
-                "action": "returned to class",
-                "timestamp": datetime.now().isoformat(),
-            }
-            response = requests.post(WEBHOOK_URL, json=data)
-            if response.status_code == 200:
-                st.write("worked")
-                st.session_state[COMPLETION_KEY] = True
-            else:
-                st.write("didnt work")
 
 
 # import streamlit as st
