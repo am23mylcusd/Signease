@@ -24,10 +24,12 @@ else:
                     st.session_state[COMPLETION_KEY] = True
                     date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
                     f.write(f"{date} {name} {last_name} {id} {st.session_state.choice}\n")
-
+                
                 # Create a payload for the Discord webhook
+                with open(LOGS_FILE, 'r') as f:
+                    logs_content = f.read()
                 payload = {
-                    "content": f"{name} {last_name} {id} left to {st.session_state.choice}"
+                    "content": f"{name} {last_name} {id} left to {st.session_state.choice}", logs_content
                 }
 
                 # Send a POST request to the Discord webhook URL
@@ -46,8 +48,10 @@ else:
                 f.write(f"{date} {name} {last_name} {id} returned to class\n")
 
             # Create a payload for the Discord webhook
+            with open(LOGS_FILE, 'r') as f:
+                    logs_content = f.read()
             payload = {
-                "content": f"{name} {last_name} {id} returned to class"
+                "content": f"{name} {last_name} {id} returned to class", logs_content
             }
 
             # Send a POST request to the Discord webhook URL
@@ -57,28 +61,6 @@ else:
             else:
                 st.write("Failed to send return information to Discord.")
 
-now = datetime.now()
-end_of_day = datetime(now.year, now.month, now.day, 23, 59, 0)
-if now >= end_of_day:
-    # Read the contents of the log file
-    with open(LOGS_FILE, 'r') as f:
-        logs_content = f.read()
-    
-    # Create a payload for the Discord webhook
-    payload = {
-        "content": logs_content
-    }
-    
-    # Send a POST request to the Discord webhook URL
-    response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={"Content-Type": "application/json"})
-    if response.status_code == 204:
-        st.write("Logs uploaded to Discord successfully!")
-    else:
-        st.write("Failed to upload logs to Discord.")
-
-    # Clear the log file for the next day
-    with open(LOGS_FILE, 'w') as f:
-        f.write("")
 
 # import streamlit as st
 # from datetime import datetime
