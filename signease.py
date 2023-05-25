@@ -1,29 +1,20 @@
 import streamlit as st
-import smtplib
-from email.message import EmailMessage
+import smtplib, ssl
 from datetime import datetime
 
 COMPLETION_KEY = "Thanks"
 
 def send_email(message):
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
     sender_email = "keithleyclassbot@gmail.com"  # Replace with your email address
-    sender_password = "Keithleyrocks123%%"  # Replace with your email password
+    password = "Keithleyrocks123%%"  # Replace with your email password
     receiver_email = "amnatsakanian23@mylcusd.net"  # Replace with your teacher's email address
 
-    msg = EmailMessage()
-    msg.set_content(message)
-    msg['Subject'] = "Student Activity"
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
-
-    try:
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-            smtp.starttls()
-            smtp.login(sender_email, sender_password)
-            smtp.send_message(msg)
-        st.write("Email sent successfully!")
-    except Exception as e:
-        st.write(f"Error sending email: {e}")
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
 
 if st.session_state.get(COMPLETION_KEY, False):
     st.write("Thanks")
@@ -48,7 +39,6 @@ else:
             date = datetime.now().strftime("|%m/%d/%Y - %I:%M %p|")
             message = f"{date} {name} {last_name} {id} returned to class"
             send_email(message)
-
 
 # import streamlit as st
 # from datetime import datetime
