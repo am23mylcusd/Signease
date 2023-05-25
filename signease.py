@@ -27,7 +27,10 @@ else:
                 }
                 response = requests.post(WEBHOOK_URL, json=data)
                 if response.status_code == 200:
+                    print("worked")
                     st.session_state[COMPLETION_KEY] = True
+                else:
+                    print("didnt work")
     else:
         submit_button = st.button("Submit")
         if submit_button:
@@ -41,7 +44,10 @@ else:
             }
             response = requests.post(WEBHOOK_URL, json=data)
             if response.status_code == 200:
+                print("worked")
                 st.session_state[COMPLETION_KEY] = True
+            else:
+                print("didnt work")
 
 
 # import streamlit as st
