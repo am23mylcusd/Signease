@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 import requests
 
-WEBHOOK_URL = "https://example.com/webhook"  # Replace with your webhook URL
+WEBHOOK_URL = "http://127.0.0.1:5000/"  # Replace with your webhook URL
 
 COMPLETION_KEY = "Thanks"
 
